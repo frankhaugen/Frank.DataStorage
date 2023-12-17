@@ -91,3 +91,20 @@ jobs:
       - name: Push NuGet Package to GitHub
         continue-on-error: true
         run: dotnet nuget push "nupkgs/*.nupkg" --source "github" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+
+      - name: Get Current Release
+        id: get_current_release
+        uses: joutvhu/get-release@v1
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Attach artifiacts to release
+        uses: xresloader/upload-to-github-release@main
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "nupkgs/*.nupkg"
+          release_id: ${{ steps.get_current_release.outputs.id }}
+          overwrite: false
+          verbose: true
