@@ -22,6 +22,6 @@
     "globalMetadata": {
       "_appTitle": "Frank.DataStorage Documentation"
     },
-    "template": ["default"]
+    "template": ["statictoc"]
   }
 }
