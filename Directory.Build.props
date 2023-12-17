@@ -30,14 +30,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="7.0.0" PrivateAssets="All"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="../readme.md" Pack="true" PackagePath="\"/>
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).Tests"/>
         <InternalsVisibleTo Include="LINQPadQuery"/>
     </ItemGroup>

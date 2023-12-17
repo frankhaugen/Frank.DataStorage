@@ -2,7 +2,8 @@ using Frank.DataStorage.Abstractions;
 
 namespace Frank.DataStorage.Tests.Shared;
 
-public class ExampleClass : IKeyed
+/// <exclude/>
+internal class ExampleClass : IKeyed
 {
     public Guid Id { get; set; }
     public string SomeData { get; set; }

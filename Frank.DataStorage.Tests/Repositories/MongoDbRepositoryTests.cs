@@ -12,6 +12,7 @@ using Xunit.Abstractions;
 
 namespace Frank.DataStorage.Tests.Repositories;
 
+/// <exclude/>
 public class MongoDbRepositoryTests
 {
     private readonly ITestOutputHelper _outputHelper;
