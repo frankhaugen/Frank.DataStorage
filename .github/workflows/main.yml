@@ -85,3 +85,6 @@ jobs:
         run: dotnet pack --configuration Release --no-build --output nupkgs /p:Version=${{ needs.prepare_versions.outputs.ReleaseVersion }}
       - name: Publish NuGet
         run: dotnet nuget push "nupkgs/*.nupkg" -k ${{ secrets.NugetKey }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Push NuGet Package to GitHub
+        continue-on-error: true
+        run: dotnet nuget push "nupkgs/*.nupkg" --source "github" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
