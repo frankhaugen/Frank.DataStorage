@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+
+        <Description>Nice helper and static collection of MimeTypes</Description>
+        <PackageTags>Mime,Mimetype,ContentType,ContentTypes,Frank, Haugen</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Frank.DataStorage.Csv\Frank.DataStorage.Csv.csproj" />
+      <ProjectReference Include="..\Frank.DataStorage.Json\Frank.DataStorage.Json.csproj" />
+      <ProjectReference Include="..\Frank.DataStorage.LiteDb\Frank.DataStorage.LiteDb.csproj" />
+      <ProjectReference Include="..\Frank.DataStorage.MongoDb\Frank.DataStorage.MongoDb.csproj" />
+      <ProjectReference Include="..\Frank.DataStorage.Sqlite\Frank.DataStorage.Sqlite.csproj" />
+      <ProjectReference Include="..\Frank.DataStorage.Xml\Frank.DataStorage.Xml.csproj" />
+    </ItemGroup>
+
+</Project>

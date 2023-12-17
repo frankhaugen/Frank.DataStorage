@@ -1,0 +1,46 @@
+{
+  "$schema": "https://dotnet.github.io/docfx/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["**.csproj"],
+          "src": "./"
+        }
+      ],
+      "dest": "api",
+      "disableGitFeatures": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["**.md", "**.yml", "toc.yml", "index.md"],
+        "src": "articles",
+        "dest": "articles" 
+      },
+      {
+        "files": ["**.md", "toc.yml", "index.md"],
+        "src": "api",
+        "dest": "api"
+      }
+    ],
+    "resource": [
+      {
+        "files": ["images/**"],
+        "src": "images",
+        "dest": "images"
+      }
+    ],
+    "overwrite": ["**/obj/**", "**/bin/**"],
+    "dest": "_docs",
+    "globalMetadata": {
+      "_appTitle": "Your Project Documentation",
+      "_enableSearch": "true"
+    },
+    "template": ["default", "templates/mytemplate"],
+    "postProcessors": ["ExtractSearchIndex"],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false
+  }
+}

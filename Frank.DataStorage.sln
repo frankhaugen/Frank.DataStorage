@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Abstractions", "Frank.DataStorage.Abstractions\Frank.DataStorage.Abstractions.csproj", "{A5AFE3E0-87D9-49B3-B55C-F81E87A29CE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Json", "Frank.DataStorage.Json\Frank.DataStorage.Json.csproj", "{00929198-CA81-4573-91A2-BFFE4EF5415B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Xml", "Frank.DataStorage.Xml\Frank.DataStorage.Xml.csproj", "{75D2FEAE-D198-4EEB-AE98-6632D1971B4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage", "Frank.DataStorage\Frank.DataStorage.csproj", "{3607F304-0939-403A-8534-9CDD742298C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Sqlite", "Frank.DataStorage.Sqlite\Frank.DataStorage.Sqlite.csproj", "{456235A0-B96D-40E9-8330-C44DD51D306F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Csv", "Frank.DataStorage.Csv\Frank.DataStorage.Csv.csproj", "{135F84F8-40CA-4DFC-895C-96A60D88A756}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.LiteDb", "Frank.DataStorage.LiteDb\Frank.DataStorage.LiteDb.csproj", "{937E8055-A820-4D08-8804-5E242B03D74C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.MongoDb", "Frank.DataStorage.MongoDb\Frank.DataStorage.MongoDb.csproj", "{42CEB97E-DD48-4B6D-A713-101536708AE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0939CCBD-3003-45F8-8977-D2D3150431DC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+		icon.png = icon.png
+		docfx.json = docfx.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{40AE0BA1-4906-4E5D-AC0D-06249153F9FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.DataStorage.Tests", "Frank.DataStorage.Tests\Frank.DataStorage.Tests.csproj", "{35CF64E4-44FD-438A-ACB1-F64805724D64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5AFE3E0-87D9-49B3-B55C-F81E87A29CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5AFE3E0-87D9-49B3-B55C-F81E87A29CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5AFE3E0-87D9-49B3-B55C-F81E87A29CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5AFE3E0-87D9-49B3-B55C-F81E87A29CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00929198-CA81-4573-91A2-BFFE4EF5415B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00929198-CA81-4573-91A2-BFFE4EF5415B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00929198-CA81-4573-91A2-BFFE4EF5415B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00929198-CA81-4573-91A2-BFFE4EF5415B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D2FEAE-D198-4EEB-AE98-6632D1971B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D2FEAE-D198-4EEB-AE98-6632D1971B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D2FEAE-D198-4EEB-AE98-6632D1971B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D2FEAE-D198-4EEB-AE98-6632D1971B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3607F304-0939-403A-8534-9CDD742298C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3607F304-0939-403A-8534-9CDD742298C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3607F304-0939-403A-8534-9CDD742298C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3607F304-0939-403A-8534-9CDD742298C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456235A0-B96D-40E9-8330-C44DD51D306F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456235A0-B96D-40E9-8330-C44DD51D306F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456235A0-B96D-40E9-8330-C44DD51D306F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456235A0-B96D-40E9-8330-C44DD51D306F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135F84F8-40CA-4DFC-895C-96A60D88A756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135F84F8-40CA-4DFC-895C-96A60D88A756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135F84F8-40CA-4DFC-895C-96A60D88A756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135F84F8-40CA-4DFC-895C-96A60D88A756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937E8055-A820-4D08-8804-5E242B03D74C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937E8055-A820-4D08-8804-5E242B03D74C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937E8055-A820-4D08-8804-5E242B03D74C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937E8055-A820-4D08-8804-5E242B03D74C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CEB97E-DD48-4B6D-A713-101536708AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CEB97E-DD48-4B6D-A713-101536708AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CEB97E-DD48-4B6D-A713-101536708AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CEB97E-DD48-4B6D-A713-101536708AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35CF64E4-44FD-438A-ACB1-F64805724D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35CF64E4-44FD-438A-ACB1-F64805724D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35CF64E4-44FD-438A-ACB1-F64805724D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35CF64E4-44FD-438A-ACB1-F64805724D64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35CF64E4-44FD-438A-ACB1-F64805724D64} = {40AE0BA1-4906-4E5D-AC0D-06249153F9FB}
+	EndGlobalSection
+EndGlobal
