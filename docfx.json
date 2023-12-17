@@ -3,25 +3,25 @@
     {
       "src": [
         {
-          "files": ["**.csproj"],
-          "cwd": "../"
+          "files": ["**.csproj"]
         }
       ],
-      "dest": "api"
+      "dest": "./"
     }
   ],
   "build": {
     "content": [
       {
         "files": ["**.md", "**.yml", "toc.yml"],
-        "src": ".",
-        "dest": "articles"
+        "src": "."
       }
     ],
     "dest": "_site",
+    "markdownEngineName": "markdig",
     "globalMetadata": {
       "_appTitle": "Frank.DataStorage Documentation"
     },
-    "template": ["statictoc"]
+    "template": ["modern", "statictoc"],
+    "postProcessors" : ["FixLinks", "FixBrokenLinks"]
   }
 }
