@@ -1,46 +1,27 @@
 {
-  "$schema": "https://dotnet.github.io/docfx/schemas/docfx.schema.json",
   "metadata": [
     {
       "src": [
         {
           "files": ["**.csproj"],
-          "src": "./"
+          "cwd": "../"
         }
       ],
-      "dest": "api",
-      "disableGitFeatures": false
+      "dest": "api"
     }
   ],
   "build": {
     "content": [
       {
-        "files": ["**.md", "**.yml", "toc.yml", "index.md"],
-        "src": "articles",
-        "dest": "articles" 
-      },
-      {
-        "files": ["**.md", "toc.yml", "index.md"],
-        "src": "api",
-        "dest": "api"
+        "files": ["**.md", "**.yml", "toc.yml"],
+        "src": ".",
+        "dest": "articles"
       }
     ],
-    "resource": [
-      {
-        "files": ["images/**"],
-        "src": "images",
-        "dest": "images"
-      }
-    ],
-    "overwrite": ["**/obj/**", "**/bin/**"],
-    "dest": "_docs",
+    "dest": "_site",
     "globalMetadata": {
-      "_appTitle": "Your Project Documentation",
-      "_enableSearch": "true"
+      "_appTitle": "Frank.DataStorage Documentation"
     },
-    "template": ["default", "templates/mytemplate"],
-    "postProcessors": ["ExtractSearchIndex"],
-    "markdownEngineName": "markdig",
-    "noLangKeyword": false
+    "template": ["default"]
   }
 }

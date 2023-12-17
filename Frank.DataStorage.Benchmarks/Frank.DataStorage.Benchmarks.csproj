@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+      <IsPackable>false</IsPackable>
+      <IsTestProject>true</IsTestProject>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <PropertyGroup>
@@ -15,5 +16,9 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.11" />
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.11"/>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Frank.DataStorage\Frank.DataStorage.csproj" />
   </ItemGroup>
 </Project>

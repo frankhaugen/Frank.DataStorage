@@ -40,7 +40,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
       - name: Build (${{ needs.prepare_versions.outputs.PreviewAssemblyVersion }})
         run: dotnet build --configuration Release /p:Version=${{ needs.prepare_versions.outputs.PreviewAssemblyVersion }}
       - name: Test
@@ -56,7 +56,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
       - name: Build (${{ needs.prepare_versions.outputs.PreviewAssemblyVersion }})
         run: dotnet build --configuration Release /p:Version=${{ needs.prepare_versions.outputs.PreviewAssemblyVersion }}
       - name: Test
@@ -76,7 +76,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
       - name: Build (${{ needs.prepare_versions.outputs.ReleaseVersion }})
         run: dotnet build --configuration Release /p:Version=${{ needs.prepare_versions.outputs.ReleaseVersion }}
       - name: Test
@@ -101,7 +101,7 @@ jobs:
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.x
+        dotnet-version: 8.0.x
     - run: dotnet tool update -g docfx
     - run: docfx docfx.json
     - name: Setup Pages
@@ -110,7 +110,7 @@ jobs:
       uses: actions/upload-pages-artifact@v2
       with:
         # Upload entire repository
-        path: '_docs'
+        path: '_site'
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v2
