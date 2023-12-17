@@ -23,7 +23,7 @@ public class MongoDbRepositoryTests
     {
         // Arrange
         // Here we are assuming that JsonTable and JsonContext classes are something like this:
-        using var runner = MongoDbRunner.Start();
+        using var runner = MongoDbRunner.Start(Path.Combine(AppContext.BaseDirectory, "MongoDbData"));
         var context = new MongoDbContext(Options.Create<MongoDbConnection>(new MongoDbConnection() { ConnectionString = runner.ConnectionString, DatabaseName = "ExampleClass" }));
         var repository = new MongoDbRepository<ExampleClass>(context);
 
