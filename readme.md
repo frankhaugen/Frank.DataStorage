@@ -27,4 +27,4 @@ dotnet add package Frank.DataStorage
 
 ### IRepository<T>
 
-This is the main interface that you will use to interact with your data. It is a generic interface that takes a type parameter that is the type of the data you are storing. This interface has a number of methods that you can use to interact with your data. The methods are:
+This is the main interface that you will use to interact with your data. It is a generic interface that takes a type parameter that is the type of the data you are storing. This interface has a number of methods that you can use to interact with your data.
