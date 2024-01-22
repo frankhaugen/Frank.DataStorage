@@ -3,8 +3,10 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
 
-        <Description>Nice helper and static collection of MimeTypes</Description>
-        <PackageTags>Mime,Mimetype,ContentType,ContentTypes,Frank, Haugen</PackageTags>
+        <Description>
+            This is a meta package that references all Frank's Data Storage libraries which is not recommended for direct use as it will pull in all dependencies and their dependencies.
+            Frank's Data Storage Library is a library that provides a common interface for storing data in different formats. And it provides implementations for storing data in CSV, JSON, LiteDB, MongoDB, SQLite and XML.</Description>
+        <PackageTags>Frank, Data, Storage, CSV, JSON, LiteDB, MongoDB, SQLite, XML</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,10 +16,6 @@
       <ProjectReference Include="..\Frank.DataStorage.MongoDb\Frank.DataStorage.MongoDb.csproj" />
       <ProjectReference Include="..\Frank.DataStorage.Sqlite\Frank.DataStorage.Sqlite.csproj" />
       <ProjectReference Include="..\Frank.DataStorage.Xml\Frank.DataStorage.Xml.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     </ItemGroup>
 
 </Project>

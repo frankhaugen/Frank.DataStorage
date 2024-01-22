@@ -1,8 +1,7 @@
 using System.Reflection;
 
 using Frank.DataStorage.Abstractions;
-
-using Namotion.Reflection;
+using Frank.Reflection;
 
 namespace Frank.DataStorage.Sqlite;
 

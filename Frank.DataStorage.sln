@@ -26,12 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		nuget.config = nuget.config
-		README.md = README.md
+		readme.md = readme.md
 		icon.png = icon.png
-		docfx.json = docfx.json
-		.github\workflows\main.yml = .github\workflows\main.yml
-		.github\workflows\dotnet-benchmark.yml = .github\workflows\dotnet-benchmark.yml
-		.github\workflows\static.yml = .github\workflows\static.yml
 		index.md = index.md
 	EndProjectSection
 EndProject

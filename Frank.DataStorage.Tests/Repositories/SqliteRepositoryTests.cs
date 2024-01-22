@@ -3,7 +3,6 @@ using FluentAssertions;
 using Frank.DataStorage.Sqlite;
 using Frank.DataStorage.Tests.Shared;
 
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 
 using Xunit.Abstractions;
@@ -52,7 +51,7 @@ public class SqliteRepositoryTests
              .BeEquivalentTo(testData2);
 
         // Delay to make sure the file is saved
-        Thread.Sleep(5000);
+        Thread.Sleep(1500);
 
         // Act: Remove an item from the repository
         repository.Delete(testData1.Id);

@@ -3,21 +3,18 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Frank.DataStorage.Abstractions;
+using Frank.Reflection;
 
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 
-using Namotion.Reflection;
-
 namespace Frank.DataStorage.Sqlite;
 
-public class SqliteClient : ISqliteClient
+public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
 {
-    private readonly SqliteConnection _connection;
+    private readonly Microsoft.Data.Sqlite.SqliteConnection _connection = new(options.Value.ConnectionString);
     private readonly SqliteTypeMapper _sqliteTypeMapper = new();
     private bool _disposed;
-
-    public SqliteClient(IOptions<SqliteConnection> options) => _connection = new SqliteConnection(options.Value.ConnectionString);
 
     private static string GetTableName<T>() where T : class, IKeyed, new() => typeof(T).GetDisplayName();
 

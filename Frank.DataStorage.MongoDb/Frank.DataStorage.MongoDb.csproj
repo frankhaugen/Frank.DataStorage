@@ -1,14 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-    </PropertyGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\Frank.DataStorage.Abstractions\Frank.DataStorage.Abstractions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
-      <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     </ItemGroup>
 </Project>
