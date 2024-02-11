@@ -8,13 +8,14 @@ namespace Frank.DataStorage.LiteDb;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddLiteDbDataStorage<T>(this IServiceCollection services, IConfiguration configuration) where T : class, IKeyed, new()
+    public static IServiceCollection AddLiteDbDataStorage<T>(this IServiceCollection services, IConfiguration configuration, string? databaseName = null) where T : class, IKeyed, new()
     {
         var connectionString = configuration.GetConnectionString(nameof(LiteDbConnection));
-        connectionString ??= Path.Combine(AppContext.BaseDirectory, "LiteDbData", "Storage.db");
-        services.AddSingleton<IOptions<LiteDbConnection>>(Options.Create(new LiteDbConnection { LiteDbDataFile = connectionString }));
-        services.AddSingleton<LiteDbDataContext>();
-        services.AddSingleton<IRepository<T>, LiteDbRepository<T>>();
+        databaseName ??= "Storage.db";
+        connectionString ??= Path.Combine(AppContext.BaseDirectory, "LiteDbData", databaseName);
+        services.AddSingletonIfNotRegistered<IOptions<LiteDbConnection>>(Options.Create(new LiteDbConnection { LiteDbDataFile = connectionString }));
+        services.AddSingletonIfNotRegistered<LiteDbDataContext>();
+        services.AddDataStorageRepository<LiteDbRepository<T>, T>();
         return services;
     }
 }

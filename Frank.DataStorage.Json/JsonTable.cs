@@ -2,75 +2,74 @@ using System.Text.Json;
 
 namespace Frank.DataStorage.Json;
 
-public class JsonTable<T>(string folderPath)
-    where T : class, new()
+public class JsonTable<T> where T : class, new()
 {
-    private readonly ReaderWriterLockSlim _lockSlim = new();
+    private readonly SemaphoreSlim _semaphoreSlim = new(1);
+    private readonly string _folderPath;
 
-    public T? Get(Guid id)
+    public JsonTable(string folderPath) => _folderPath = folderPath;
+
+    private static string GetFilePath(string folderPath, Guid id) => Path.Combine(folderPath, $"{id}.json");
+
+    public async Task<T?> GetAsync(Guid id)
     {
-        _lockSlim.EnterReadLock();
+        await _semaphoreSlim.WaitAsync();
         try
         {
-            var filePath = GetFilePath(folderPath, id);
+            var filePath = GetFilePath(_folderPath, id);
             if (!File.Exists(filePath))
-            {
                 return null;
-            }
-
-            var json = File.ReadAllText(filePath);
+            var json = await File.ReadAllTextAsync(filePath);
             return JsonSerializer.Deserialize<T>(json);
         }
         finally
         {
-            _lockSlim.ExitReadLock();
+            _semaphoreSlim.Release();
         }
     }
 
-    public void Save(Guid id, T entity)
+    public async Task SaveAsync(Guid id, T entity)
     {
-        _lockSlim.EnterWriteLock();
+        await _semaphoreSlim.WaitAsync();
         try
         {
-            var filePath = GetFilePath(folderPath, id);
+            var filePath = GetFilePath(_folderPath, id);
             var json = JsonSerializer.Serialize(entity);
-            File.WriteAllText(filePath, json);
+            await File.WriteAllTextAsync(filePath, json);
         }
         finally
         {
-            _lockSlim.ExitWriteLock();
+            _semaphoreSlim.Release();
         }
     }
 
-    public IEnumerable<T?> GetAll()
+    public async IAsyncEnumerable<T?> GetAllAsync()
     {
-        _lockSlim.EnterReadLock();
+        await _semaphoreSlim.WaitAsync();
         try
         {
-            foreach (var filePath in Directory.EnumerateFiles(folderPath))
+            foreach (var filePath in Directory.EnumerateFiles(_folderPath))
             {
-                var json = File.ReadAllText(filePath);
+                var json = await File.ReadAllTextAsync(filePath);
                 yield return JsonSerializer.Deserialize<T>(json);
             }
         }
         finally
         {
-            _lockSlim.ExitReadLock();
+            _semaphoreSlim.Release();
         }
     }
 
-    public void Delete(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        _lockSlim.EnterWriteLock();
+        await _semaphoreSlim.WaitAsync();
         try
         {
-            File.Delete(GetFilePath(folderPath, id));
+            File.Delete(GetFilePath(_folderPath, id));
         }
         finally
         {
-            _lockSlim.ExitWriteLock();
+            _semaphoreSlim.Release();
         }
     }
-
-    private static string GetFilePath(string folderPath, Guid id) => Path.Combine(folderPath, $"{id}.json");
 }

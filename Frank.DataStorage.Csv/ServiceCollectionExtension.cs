@@ -12,9 +12,9 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString(nameof(CsvConnection));
         connectionString ??= Path.Combine(AppContext.BaseDirectory, "CsvData");
-        services.AddSingleton<IOptions<CsvConnection>>(Options.Create(new CsvConnection { CsvDataFolder = connectionString }));
-        services.AddSingleton<CsvDocument<T>>();
-        services.AddSingleton<IRepository<T>, CsvRepository<T>>();
+        services.AddSingletonIfNotRegistered<IOptions<CsvConnection>>(Options.Create(new CsvConnection { CsvDataFolder = connectionString }));
+        services.AddSingletonIfNotRegistered<CsvDocument<T>>();
+        services.AddDataStorageRepository<CsvRepository<T>, T>();
         return services;
     }
 }

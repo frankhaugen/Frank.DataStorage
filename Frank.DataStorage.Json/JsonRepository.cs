@@ -7,13 +7,13 @@ public class JsonRepository<T>(JsonContext context) : IRepository<T>
 {
     private readonly JsonTable<T> _table = context.GetTable<T>();
 
-    public IQueryable<T?> GetAll() => _table.GetAll().AsQueryable();
+    public IQueryable<T?> GetAll() => _table.GetAllAsync().ToBlockingEnumerable().AsQueryable();
 
-    public void Add(T entity) => _table.Save(entity.Id, entity);
+    public Task AddAsync(T entity) => _table.SaveAsync(entity.Id, entity);
 
-    public void Update(T entity) => _table.Save(entity.Id, entity);
+    public Task UpdateAsync(T entity) => _table.SaveAsync(entity.Id, entity);
 
-    public void Delete(Guid id) => _table.Delete(id);
+    public Task DeleteAsync(Guid id) => _table.DeleteAsync(id);
 
-    public T? GetById(Guid id) => _table.Get(id);
+    public Task<T?> GetByIdAsync(Guid id) => _table.GetAsync(id);
 }

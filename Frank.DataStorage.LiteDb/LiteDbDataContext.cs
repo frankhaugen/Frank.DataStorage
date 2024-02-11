@@ -9,19 +9,15 @@ namespace Frank.DataStorage.LiteDb;
 
 public class LiteDbDataContext : IDisposable
 {
-    private readonly IOptions<LiteDbConnection> _options;
     private readonly ILiteDatabase _liteDatabase;
 
     public LiteDbDataContext(IOptions<LiteDbConnection> options)
     {
-        _options = options;
-
-        var directory = new FileInfo(_options.Value.LiteDbDataFile).Directory;
-
-        if (directory != null && !directory.Exists)
+        var directory = new FileInfo(options.Value.LiteDbDataFile).Directory;
+        if (directory is { Exists: false })
             directory.Create();
-
-        _liteDatabase = new LiteDatabase(_options.Value.LiteDbDataFile);
+        _liteDatabase = new LiteDatabase(options.Value.LiteDbDataFile);
+        _liteDatabase.UtcDate = true;
     }
 
     public ILiteCollection<T> GetCollection<T>() where T : class, IKeyed, new() => _liteDatabase.GetCollection<T>(typeof(T).GetDisplayName(), BsonAutoId.Guid);

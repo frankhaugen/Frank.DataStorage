@@ -9,15 +9,15 @@ public class LiteDbRepository<T>(LiteDbDataContext liteDbDataContext) : IReposit
                                                        .FindAll()
                                                        .AsQueryable();
 
-    public void Add(T entity) => liteDbDataContext.GetCollection<T>()
-                                                   .Insert(entity);
+    public Task AddAsync(T entity) => Task.FromResult(liteDbDataContext.GetCollection<T>()
+        .Insert(entity));
 
-    public void Update(T entity) => liteDbDataContext.GetCollection<T>()
-                                                      .Update(entity);
+    public Task UpdateAsync(T entity) => Task.FromResult(liteDbDataContext.GetCollection<T>()
+           .Update(entity));
 
-    public void Delete(Guid id) => liteDbDataContext.GetCollection<T>()
-                                                     .Delete(id);
+    public Task DeleteAsync(Guid id) => Task.FromResult(liteDbDataContext.GetCollection<T>()
+        .Delete(id));
 
-    public T? GetById(Guid id) => liteDbDataContext.GetCollection<T>()
-                                                    .FindById(id);
+    public Task<T?> GetByIdAsync(Guid id) => Task.FromResult(liteDbDataContext.GetCollection<T>()
+        .FindById(id))!;
 }

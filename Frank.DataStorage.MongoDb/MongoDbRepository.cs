@@ -11,12 +11,11 @@ public class MongoDbRepository<T>(MongoDbContext context) : IRepository<T>
 
     public IQueryable<T?> GetAll() => _collection.AsQueryable();
 
-    public void Add(T entity) => _collection.InsertOne(entity);
+    public Task AddAsync(T entity) => _collection.InsertOneAsync(entity);
 
-    public void Update(T entity) => _collection.ReplaceOne(x => x.Id == entity.Id, entity);
+    public Task UpdateAsync(T entity) => _collection.ReplaceOneAsync(x => x.Id == entity.Id, entity);
 
-    public void Delete(Guid id) => _collection.DeleteOne(x => x.Id == id);
+    public Task DeleteAsync(Guid id) => _collection.DeleteOneAsync(x => x.Id == id);
 
-    public T? GetById(Guid id) => _collection.Find(x => x.Id == id)
-                                             .FirstOrDefault();
+    public Task<T?> GetByIdAsync(Guid id) => Task.FromResult(_collection.Find(x => x.Id == id).FirstOrDefault())!;
 }

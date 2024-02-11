@@ -20,34 +20,35 @@ public class XmlRepository<T> : IRepository<T> where T : class, IKeyed, new()
                                            .Select(GetEntityFromDataRow)
                                            .AsQueryable();
 
-    public void Add(T entity)
+    public Task AddAsync(T entity)
     {
         var row = _table.NewRow();
         SetDataRowFromEntity(row, entity);
         _table.Rows.Add(row);
         _dataContext.SaveChanges();
+        return Task.CompletedTask;
     }
 
-    public void Update(T entity)
+    public Task UpdateAsync(T entity)
     {
         var row = _table.Rows.Find(entity.Id);
         SetDataRowFromEntity(row, entity);
         _dataContext.SaveChanges();
+        return Task.CompletedTask;
     }
 
-    public void Delete(Guid id)
+    public Task DeleteAsync(Guid id)
     {
         var row = _table.Rows.Find(id);
         row?.Delete();
         _dataContext.SaveChanges();
+        return Task.CompletedTask;
     }
 
-    public T? GetById(Guid id)
+    public Task<T?> GetByIdAsync(Guid id)
     {
         var row = _table.Rows.Find(id);
-        return row == null
-            ? null
-            : GetEntityFromDataRow(row);
+        return Task.FromResult(row == null ? null : GetEntityFromDataRow(row))!;
     }
 
     private static T GetEntityFromDataRow(DataRow row)

@@ -16,13 +16,13 @@ public interface IRepository<T> where T : class, IKeyed, new()
     /// Adds a new entity of type T to the collection.
     /// </summary>
     /// <param name="entity">The entity to be added.</param>
-    void Add(T entity);
+    Task AddAsync(T entity);
 
     /// <summary>
     /// Updates the specified entity in the database.
     /// </summary>
     /// <param name="entity">The entity to be updated.</param>
-    void Update(T entity);
+    Task UpdateAsync(T entity);
 
     /// <summary>
     /// Deletes an item with the specified id.
@@ -32,12 +32,12 @@ public interface IRepository<T> where T : class, IKeyed, new()
     /// The Delete method removes an item from the system based on its id.
     /// This operation is irreversible and cannot be undone.
     /// </remarks>
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 
     /// <summary>
     /// Retrieves an object by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the object.</param>
     /// <returns>The object with the given identifier, or null if not found.</returns>
-    T? GetById(Guid id);
+    Task<T?> GetByIdAsync(Guid id);
 }

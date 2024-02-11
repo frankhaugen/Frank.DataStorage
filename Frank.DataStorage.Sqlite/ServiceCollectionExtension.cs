@@ -8,16 +8,15 @@ namespace Frank.DataStorage.Sqlite;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSqliteDataStorage<T>(this IServiceCollection services, IConfiguration configuration) where T : class, IKeyed, new()
+    public static IServiceCollection AddSqliteDataStorage<T>(this IServiceCollection services, IConfiguration configuration, string? databaseName = null) where T : class, IKeyed, new()
     {
-        services.Configure<SqliteConnection>(configuration.GetSection(nameof(SqliteConnection)));
-        services.AddSingleton<ISqliteClient, SqliteClient>();
-        services.AddSingleton<IRepository<T>, SqliteRepository<T>>();
+        
+        var connectionString = configuration.GetConnectionString(nameof(SqliteConnection));
+        databaseName ??= "Storage.db";
+        connectionString ??= $"Data Source={Path.Combine(AppContext.BaseDirectory, "SqliteData", databaseName)}";
+        services.AddSingletonIfNotRegistered<IOptions<SqliteConnection>>(Options.Create(new SqliteConnection { ConnectionString = connectionString }));
+        services.AddSingletonIfNotRegistered<ISqliteClient, SqliteClient>();
+        services.AddDataStorageRepository<SqliteRepository<T>, T>();
         return services;
     }
-}
-
-public class SqliteConnection
-{
-    public string? ConnectionString { get; set; }
 }

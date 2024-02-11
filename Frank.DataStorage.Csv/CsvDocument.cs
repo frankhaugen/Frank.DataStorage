@@ -208,14 +208,16 @@ public class CsvDocument<T> : ICollection<T> where T : class, IKeyed, new()
         return ParseLine(line);
     }
 
-    public void Delete(Guid id)
+    public Task DeleteAsync(Guid id)
     {
         var line = _file.LineStartsWith(id.ToString());
         if (string.IsNullOrWhiteSpace(line))
         {
-            return;
+            return Task.CompletedTask;
         }
 
         _file.DeleteLine(line);
+        
+        return Task.CompletedTask;
     }
 }

@@ -8,13 +8,14 @@ namespace Frank.DataStorage.MongoDb;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMongoDbDataStorage<T>(this IServiceCollection services, string databaseName, IConfiguration configuration) where T : class, IKeyed, new()
+    public static IServiceCollection AddMongoDbDataStorage<T>(this IServiceCollection services, IConfiguration configuration, string? databaseName = null) where T : class, IKeyed, new()
     {
         var connectionString = configuration.GetConnectionString(nameof(MongoDbConnection));
         connectionString ??= "mongodb://localhost:27017";
-        services.AddSingleton<IOptions<MongoDbConnection>>(Options.Create(new MongoDbConnection { ConnectionString = connectionString, DatabaseName = databaseName }));
-        services.AddSingleton<MongoDbContext>();
-        services.AddSingleton<IRepository<T>, MongoDbRepository<T>>();
+        databaseName ??= "DataStorage";
+        services.AddSingletonIfNotRegistered<IOptions<MongoDbConnection>>(Options.Create(new MongoDbConnection { ConnectionString = connectionString, DatabaseName = databaseName }));
+        services.AddSingletonIfNotRegistered<MongoDbContext>();
+        services.AddDataStorageRepository<MongoDbRepository<T>, T>();
         return services;
     }
 }

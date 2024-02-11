@@ -7,11 +7,15 @@ public class CsvRepository<T>(CsvDocument<T> csvDocument) : IRepository<T>
 {
     public IQueryable<T?> GetAll() => csvDocument.AsQueryable();
 
-    public void Add(T entity) => csvDocument.Add(entity);
+    public Task AddAsync(T entity)
+    {
+        csvDocument.Add(entity);
+        return Task.CompletedTask;
+    }
 
-    public void Update(T entity) => csvDocument.Update(entity);
+    public Task UpdateAsync(T entity) => Task.FromResult(csvDocument.Update(entity));
 
-    public void Delete(Guid id) => csvDocument.Delete(id);
+    public Task DeleteAsync(Guid id) => csvDocument.DeleteAsync(id);
 
-    public T? GetById(Guid id) => csvDocument.GetById(id);
+    public Task<T?> GetByIdAsync(Guid id) => Task.FromResult(csvDocument.GetById(id))!;
 }

@@ -12,9 +12,9 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString(nameof(JsonConnection));
         connectionString ??= Path.Combine(AppContext.BaseDirectory, "JsonData");
-        services.AddSingleton<IOptions<JsonConnection>>(Options.Create(new JsonConnection { JsonDataFolder = connectionString }));
-        services.AddSingleton<JsonContext>();
-        services.AddSingleton<IRepository<T>, JsonRepository<T>>();
+        services.AddSingletonIfNotRegistered<IOptions<JsonConnection>>(Options.Create(new JsonConnection { JsonDataFolder = connectionString }));
+        services.AddSingletonIfNotRegistered<JsonContext>();
+        services.AddDataStorageRepository<JsonRepository<T>, T>();
         return services;
     }
 }

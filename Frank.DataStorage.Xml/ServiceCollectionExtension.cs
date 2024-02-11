@@ -12,9 +12,9 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString(nameof(XmlConnection));
         connectionString ??= Path.Combine(AppContext.BaseDirectory, "XmlData");
-        services.AddSingleton<IOptions<XmlConnection>>(Options.Create(new XmlConnection { XmlDataFile = connectionString }));
-        services.AddSingleton<XmlDataContext>();
-        services.AddSingleton<IRepository<T>, XmlRepository<T>>();
+        services.AddSingletonIfNotRegistered<IOptions<XmlConnection>>(Options.Create(new XmlConnection { XmlDataFile = connectionString }));
+        services.AddSingletonIfNotRegistered<XmlDataContext>();
+        services.AddDataStorageRepository<XmlRepository<T>, T>();
         return services;
     }
 }
