@@ -10,11 +10,9 @@ using Xunit.Abstractions;
 namespace Frank.DataStorage.Tests.Repositories;
 
 /// <exclude/>
-public class JsonRepositoryTests
+public class JsonRepositoryTests(ITestOutputHelper outputHelper)
 {
-    private readonly ITestOutputHelper _outputHelper;
-
-    public JsonRepositoryTests(ITestOutputHelper outputHelper) => _outputHelper = outputHelper;
+    private readonly ITestOutputHelper _outputHelper = outputHelper;
 
     [Fact]
     public void RunTests()

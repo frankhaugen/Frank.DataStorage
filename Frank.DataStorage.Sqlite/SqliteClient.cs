@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Frank.DataStorage.Abstractions;
+using Frank.DataStorage.Sqlite.Internals;
 using Frank.Reflection;
 
 using Microsoft.Data.Sqlite;
@@ -94,17 +95,15 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
 
         var insertStatement = $"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", values)});";
 
-        using (var command = new SqliteCommand(insertStatement, _connection))
+        using var command = new SqliteCommand(insertStatement, _connection);
+        foreach (var property in properties)
         {
-            foreach (var property in properties)
-            {
-                command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(entity));
-            }
-
-            _connection.Open();
-            command.ExecuteNonQuery();
-            _connection.Close();
+            command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(entity));
         }
+
+        _connection.Open();
+        command.ExecuteNonQuery();
+        _connection.Close();
     }
 
     public void Update<T>(T entity) where T : class, IKeyed, new()
@@ -112,25 +111,19 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
         var tableName = GetTableName<T>();
         var properties = typeof(T).GetProperties();
 
-        var columns = new List<string>();
-        foreach (var property in properties)
-        {
-            columns.Add($"{property.Name} = @{property.Name}");
-        }
+        var columns = properties.Select(property => $"{property.Name} = @{property.Name}").ToList();
 
         var updateStatement = $"UPDATE {tableName} SET {string.Join(", ", columns)} WHERE Id = @Id;";
 
-        using (var command = new SqliteCommand(updateStatement, _connection))
+        using var command = new SqliteCommand(updateStatement, _connection);
+        foreach (var property in properties)
         {
-            foreach (var property in properties)
-            {
-                command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(entity));
-            }
-
-            _connection.Open();
-            command.ExecuteNonQuery();
-            _connection.Close();
+            command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(entity));
         }
+
+        _connection.Open();
+        command.ExecuteNonQuery();
+        _connection.Close();
     }
 
     public void Delete<T>(T entity) where T : class, IKeyed, new()
@@ -138,14 +131,12 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
         var tableName = GetTableName<T>();
         var deleteStatement = $"DELETE FROM {tableName} WHERE Id = @Id;";
 
-        using (var command = new SqliteCommand(deleteStatement, _connection))
-        {
-            command.Parameters.AddWithValue("@Id", entity.Id);
+        using var command = new SqliteCommand(deleteStatement, _connection);
+        command.Parameters.AddWithValue("@Id", entity.Id);
 
-            _connection.Open();
-            command.ExecuteNonQuery();
-            _connection.Close();
-        }
+        _connection.Open();
+        command.ExecuteNonQuery();
+        _connection.Close();
     }
 
     public void Dispose()
@@ -189,7 +180,7 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
     {
         if (fieldType == typeof(Guid))
         {
-            property.SetValue(entity, Guid.Parse(value.ToString()));
+            property.SetValue(entity, Guid.Parse(value.ToString() ?? string.Empty));
         }
         else if (fieldType == typeof(Guid?))
         {
@@ -299,7 +290,7 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
         }
         else if (fieldType == typeof(TimeSpan))
         {
-            property.SetValue(entity, TimeSpan.Parse(value.ToString()));
+            property.SetValue(entity, TimeSpan.Parse(value.ToString() ?? string.Empty));
         }
         else if (fieldType == typeof(TimeSpan?))
         {
@@ -309,7 +300,7 @@ public class SqliteClient(IOptions<SqliteConnection> options) : ISqliteClient
         }
         else if (fieldType == typeof(DateTimeOffset))
         {
-            property.SetValue(entity, DateTimeOffset.Parse(value.ToString()));
+            property.SetValue(entity, DateTimeOffset.Parse(value.ToString() ?? string.Empty));
         }
         else if (fieldType == typeof(DateTimeOffset?))
         {

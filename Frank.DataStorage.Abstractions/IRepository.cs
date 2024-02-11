@@ -10,7 +10,7 @@ public interface IRepository<T> where T : class, IKeyed, new()
     /// </summary>
     /// <typeparam name="T">The type of entities to retrieve.</typeparam>
     /// <returns>An IQueryable collection of entities.</returns>
-    IQueryable<T> GetAll();
+    IQueryable<T?> GetAll();
 
     /// <summary>
     /// Adds a new entity of type T to the collection.
@@ -40,9 +40,4 @@ public interface IRepository<T> where T : class, IKeyed, new()
     /// <param name="id">The unique identifier of the object.</param>
     /// <returns>The object with the given identifier, or null if not found.</returns>
     T? GetById(Guid id);
-
-    /// <summary>
-    /// Saves the changes made to the database.
-    /// </summary>
-    void SaveChanges();
 }

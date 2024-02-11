@@ -10,11 +10,9 @@ using Xunit.Abstractions;
 namespace Frank.DataStorage.Tests.Repositories;
 
 /// <exclude/>
-public class XmlRepositoryTests
+public class XmlRepositoryTests(ITestOutputHelper outputHelper)
 {
-    private readonly ITestOutputHelper _outputHelper;
-
-    public XmlRepositoryTests(ITestOutputHelper outputHelper) => _outputHelper = outputHelper;
+    private readonly ITestOutputHelper _outputHelper = outputHelper;
 
     [Fact]
     public void RunTests()
@@ -30,7 +28,6 @@ public class XmlRepositoryTests
         // Act: Add some items to the repository
         repository.Add(testData1);
         repository.Add(testData2);
-        repository.SaveChanges();
 
         // Assert
         // Check that the items exist in the repository
@@ -51,7 +48,6 @@ public class XmlRepositoryTests
 
         // Act: Remove an item from the repository
         repository.Delete(testData1.Id);
-        repository.SaveChanges();
 
         // Assert
         // Check that the item does not exist in the repository

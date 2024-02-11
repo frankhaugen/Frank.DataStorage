@@ -16,7 +16,7 @@ public class XmlRepository<T> : IRepository<T> where T : class, IKeyed, new()
         _dataContext.SaveChanges();
     }
 
-    public IQueryable<T> GetAll() => _table.Rows.Cast<DataRow>()
+    public IQueryable<T?> GetAll() => _table.Rows.Cast<DataRow>()
                                            .Select(GetEntityFromDataRow)
                                            .AsQueryable();
 
@@ -25,18 +25,21 @@ public class XmlRepository<T> : IRepository<T> where T : class, IKeyed, new()
         var row = _table.NewRow();
         SetDataRowFromEntity(row, entity);
         _table.Rows.Add(row);
+        _dataContext.SaveChanges();
     }
 
     public void Update(T entity)
     {
         var row = _table.Rows.Find(entity.Id);
         SetDataRowFromEntity(row, entity);
+        _dataContext.SaveChanges();
     }
 
     public void Delete(Guid id)
     {
         var row = _table.Rows.Find(id);
         row?.Delete();
+        _dataContext.SaveChanges();
     }
 
     public T? GetById(Guid id)
@@ -46,8 +49,6 @@ public class XmlRepository<T> : IRepository<T> where T : class, IKeyed, new()
             ? null
             : GetEntityFromDataRow(row);
     }
-
-    public void SaveChanges() => _dataContext.SaveChanges();
 
     private static T GetEntityFromDataRow(DataRow row)
     {

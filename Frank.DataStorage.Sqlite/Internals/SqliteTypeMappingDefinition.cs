@@ -1,18 +1,15 @@
-namespace Frank.DataStorage.Sqlite;
+namespace Frank.DataStorage.Sqlite.Internals;
 
 internal class SqliteTypeMappingDefinition
 {
-    private readonly Dictionary<string, IEnumerable<Type>> _typeMappings;
-
-    public SqliteTypeMappingDefinition() =>
-        _typeMappings = new Dictionary<string, IEnumerable<Type>>
-        {
-            { "INTEGER", new IntegerTypes() },
-            { "TEXT", new TextTypes() },
-            { "BLOB", new BlobTypes() },
-            { "REAL", new RealTypes() },
-            { "NUMERIC", new NumericTypes() }
-        };
+    private readonly Dictionary<string, IEnumerable<Type>> _typeMappings = new()
+    {
+        { "INTEGER", new IntegerTypes() },
+        { "TEXT", new TextTypes() },
+        { "BLOB", new BlobTypes() },
+        { "REAL", new RealTypes() },
+        { "NUMERIC", new NumericTypes() }
+    };
 
     public IEnumerable<Type> this[string affinity]
     {

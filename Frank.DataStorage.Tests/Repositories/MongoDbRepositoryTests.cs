@@ -13,11 +13,9 @@ using Xunit.Abstractions;
 namespace Frank.DataStorage.Tests.Repositories;
 
 /// <exclude/>
-public class MongoDbRepositoryTests
+public class MongoDbRepositoryTests(ITestOutputHelper outputHelper)
 {
-    private readonly ITestOutputHelper _outputHelper;
-
-    public MongoDbRepositoryTests(ITestOutputHelper outputHelper) => _outputHelper = outputHelper;
+    private readonly ITestOutputHelper _outputHelper = outputHelper;
 
     [Fact(Skip = "Issue with MongoDbRunner in Github Actions")]
     public void RunTests()

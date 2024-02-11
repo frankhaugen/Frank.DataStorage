@@ -2,19 +2,17 @@ using System.Text.Json;
 
 namespace Frank.DataStorage.Json;
 
-public class JsonTable<T> where T : class, new()
+public class JsonTable<T>(string folderPath)
+    where T : class, new()
 {
-    private readonly string _folderPath;
     private readonly ReaderWriterLockSlim _lockSlim = new();
-
-    public JsonTable(string folderPath) => _folderPath = folderPath;
 
     public T? Get(Guid id)
     {
         _lockSlim.EnterReadLock();
         try
         {
-            var filePath = GetFilePath(_folderPath, id);
+            var filePath = GetFilePath(folderPath, id);
             if (!File.Exists(filePath))
             {
                 return null;
@@ -34,7 +32,7 @@ public class JsonTable<T> where T : class, new()
         _lockSlim.EnterWriteLock();
         try
         {
-            var filePath = GetFilePath(_folderPath, id);
+            var filePath = GetFilePath(folderPath, id);
             var json = JsonSerializer.Serialize(entity);
             File.WriteAllText(filePath, json);
         }
@@ -49,7 +47,7 @@ public class JsonTable<T> where T : class, new()
         _lockSlim.EnterReadLock();
         try
         {
-            foreach (var filePath in Directory.EnumerateFiles(_folderPath))
+            foreach (var filePath in Directory.EnumerateFiles(folderPath))
             {
                 var json = File.ReadAllText(filePath);
                 yield return JsonSerializer.Deserialize<T>(json);
@@ -66,7 +64,7 @@ public class JsonTable<T> where T : class, new()
         _lockSlim.EnterWriteLock();
         try
         {
-            File.Delete(GetFilePath(_folderPath, id));
+            File.Delete(GetFilePath(folderPath, id));
         }
         finally
         {

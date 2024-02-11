@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Frank.DataStorage.Sqlite;
+namespace Frank.DataStorage.Sqlite.Internals;
 
 internal class IntegerTypes : IEnumerable<Type>
 {

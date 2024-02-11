@@ -3,13 +3,11 @@ using System.Reflection;
 using Frank.DataStorage.Abstractions;
 using Frank.Reflection;
 
-namespace Frank.DataStorage.Sqlite;
+namespace Frank.DataStorage.Sqlite.Internals;
 
 internal class SqliteTypeMapper
 {
-    private readonly SqliteTypeMappingDefinition _typeMappingDefinition;
-
-    public SqliteTypeMapper() => _typeMappingDefinition = new SqliteTypeMappingDefinition();
+    private readonly SqliteTypeMappingDefinition _typeMappingDefinition = new();
 
     public string CreateTableIfNotExistsStatement<T>() where T : class, IKeyed, new()
     {

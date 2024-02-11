@@ -12,7 +12,7 @@ public class SqliteRepository<T> : IRepository<T> where T : class, IKeyed, new()
         _sqliteClient.EnsureTableExists<T>();
     }
 
-    public IQueryable<T> GetAll() => _sqliteClient.GetAll<T>()
+    public IQueryable<T?> GetAll() => _sqliteClient.GetAll<T>()
                                                   .AsQueryable();
 
     public void Add(T entity) => _sqliteClient.Insert(entity);
@@ -22,8 +22,4 @@ public class SqliteRepository<T> : IRepository<T> where T : class, IKeyed, new()
     public void Delete(Guid id) => _sqliteClient.Delete<T>(GetById(id)!);
 
     public T? GetById(Guid id) => _sqliteClient.GetById<T>(id);
-
-    public void SaveChanges()
-    {
-    }
 }

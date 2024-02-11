@@ -2,49 +2,16 @@ using System.Data;
 
 namespace Frank.DataStorage.Xml;
 
-public class XmlFile
+public class XmlFile(FileInfo file)
 {
-    private readonly FileInfo _file;
     private readonly ReaderWriterLockSlim _lock = new(LockRecursionPolicy.SupportsRecursion);
-
-    public XmlFile(FileInfo file)
-    {
-        _file = file;
-
-    }
-
-    private void CreateFile()
-    {
-        _lock.EnterWriteLock();
-        try
-        {
-            WriteXml(new DataSet());
-        }
-        finally
-        {
-            _lock.ExitWriteLock();
-        }
-    }
-
-    private void CreateDirectory()
-    {
-        _lock.EnterWriteLock();
-        try
-        {
-            _file.Directory!.Create();
-        }
-        finally
-        {
-            _lock.ExitWriteLock();
-        }
-    }
 
     public void WriteXml(DataSet dataSet)
     {
         _lock.EnterWriteLock();
         try
         {
-            dataSet.WriteXml(_file.FullName, XmlWriteMode.IgnoreSchema);
+            dataSet.WriteXml(file.FullName, XmlWriteMode.IgnoreSchema);
         }
         finally
         {
@@ -58,11 +25,11 @@ public class XmlFile
         try
         {
             var dataSet = new DataSet();
-            _file.Directory!.Create();
-            if (!_file.Exists)
-                dataSet.WriteXml(_file.FullName, XmlWriteMode.IgnoreSchema);
+            file.Directory!.Create();
+            if (!file.Exists)
+                dataSet.WriteXml(file.FullName, XmlWriteMode.IgnoreSchema);
 
-            dataSet.ReadXml(_file.FullName, XmlReadMode.IgnoreSchema);
+            dataSet.ReadXml(file.FullName, XmlReadMode.IgnoreSchema);
             return dataSet;
         }
         finally

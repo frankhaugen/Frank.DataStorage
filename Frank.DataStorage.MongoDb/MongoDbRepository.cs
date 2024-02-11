@@ -4,13 +4,12 @@ using MongoDB.Driver;
 
 namespace Frank.DataStorage.MongoDb;
 
-public class MongoDbRepository<T> : IRepository<T> where T : class, IKeyed, new()
+public class MongoDbRepository<T>(MongoDbContext context) : IRepository<T>
+    where T : class, IKeyed, new()
 {
-    private readonly IMongoCollection<T> _collection;
+    private readonly IMongoCollection<T> _collection = context.GetCollection<T>();
 
-    public MongoDbRepository(MongoDbContext context) => _collection = context.GetCollection<T>();
-
-    public IQueryable<T> GetAll() => _collection.AsQueryable();
+    public IQueryable<T?> GetAll() => _collection.AsQueryable();
 
     public void Add(T entity) => _collection.InsertOne(entity);
 
@@ -20,8 +19,4 @@ public class MongoDbRepository<T> : IRepository<T> where T : class, IKeyed, new(
 
     public T? GetById(Guid id) => _collection.Find(x => x.Id == id)
                                              .FirstOrDefault();
-
-    public void SaveChanges()
-    {
-    }
 }

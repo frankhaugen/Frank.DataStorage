@@ -10,12 +10,8 @@ using Xunit.Abstractions;
 namespace Frank.DataStorage.Tests.Repositories;
 
 /// <exclude/>
-public class SqliteRepositoryTests
+public class SqliteRepositoryTests(ITestOutputHelper outputHelper)
 {
-    private readonly ITestOutputHelper _outputHelper;
-
-    public SqliteRepositoryTests(ITestOutputHelper outputHelper) => _outputHelper = outputHelper;
-
     [Fact]
     public void RunTests()
     {
@@ -28,13 +24,12 @@ public class SqliteRepositoryTests
         var testData2 = new ExampleClass { Id = Guid.NewGuid(), SomeData = "Test2", DateTime = new DateTime(2021, 1, 1), DateTimeOffset = new DateTimeOffset(2021, 1, 1, 1, 1, 1, TimeSpan.Zero), TimeSpan = new TimeSpan(1, 2, 3), Boolean = true };
 
         // print ID's to console
-        _outputHelper.WriteLine(testData1.Id.ToString());
-        _outputHelper.WriteLine(testData2.Id.ToString());
+        outputHelper.WriteLine(testData1.Id.ToString());
+        outputHelper.WriteLine(testData2.Id.ToString());
 
         // Act: Add some items to the repository
         repository.Add(testData1);
         repository.Add(testData2);
-        repository.SaveChanges();
 
         // Assert
         // Check that the items exist in the repository
@@ -55,7 +50,6 @@ public class SqliteRepositoryTests
 
         // Act: Remove an item from the repository
         repository.Delete(testData1.Id);
-        repository.SaveChanges();
 
         // Assert
         // Check that the item does not exist in the repository
