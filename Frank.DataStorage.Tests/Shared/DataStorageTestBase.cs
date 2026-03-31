@@ -5,6 +5,7 @@ using Frank.DataStorage.Csv;
 using Frank.DataStorage.Json;
 using Frank.DataStorage.LiteDb;
 using Frank.DataStorage.MongoDb;
+using Frank.DataStorage.Realm;
 using Frank.DataStorage.Sqlite;
 using Frank.DataStorage.Xml;
 using Frank.Testing.TestBases;
@@ -55,6 +56,9 @@ public abstract class DataStorageTestBase<T> : HostApplicationTestBase, IAsyncDi
             case StorageType.Xml:
                 builder.Services.AddXmlDataStorage<T>(builder.Configuration);
                 break;
+            case StorageType.Realm:
+                builder.Services.AddRealmDataStorage<T>(builder.Configuration);
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -91,5 +95,6 @@ public enum StorageType
     LiteDb,
     MongoDb,
     Sqlite,
-    Xml
+    Xml,
+    Realm
 }

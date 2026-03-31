@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Frank.DataStorage.Realm\Frank.DataStorage.Realm.csproj" />
       <ProjectReference Include="..\Frank.DataStorage\Frank.DataStorage.csproj" />
     </ItemGroup>
 
