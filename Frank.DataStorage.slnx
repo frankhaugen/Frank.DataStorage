@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="icon.png" />
+    <File Path="index.md" />
+    <File Path="LICENSE" />
+    <File Path="nuget.config" />
+    <File Path="readme.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Frank.DataStorage.Tests/Frank.DataStorage.Tests.csproj" />
+  </Folder>
+  <Project Path="Frank.DataStorage.Abstractions/Frank.DataStorage.Abstractions.csproj" />
+  <Project Path="Frank.DataStorage.Csv/Frank.DataStorage.Csv.csproj" />
+  <Project Path="Frank.DataStorage.Json/Frank.DataStorage.Json.csproj" />
+  <Project Path="Frank.DataStorage.LiteDb/Frank.DataStorage.LiteDb.csproj" />
+  <Project Path="Frank.DataStorage.MongoDb/Frank.DataStorage.MongoDb.csproj" />
+  <Project Path="Frank.DataStorage.Realm/Frank.DataStorage.Realm.csproj" />
+  <Project Path="Frank.DataStorage.Sqlite/Frank.DataStorage.Sqlite.csproj" />
+  <Project Path="Frank.DataStorage.Xml/Frank.DataStorage.Xml.csproj" />
+  <Project Path="Frank.DataStorage/Frank.DataStorage.csproj" />
+</Solution>
